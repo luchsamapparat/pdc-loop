@@ -1,0 +1,29 @@
+<h1 class="display-4 mb-4">Loop</h1>
+
+<div class="alert mb-4" [ngClass]="{ 'alert-success': isValid, 'alert-danger': !isValid }" role="alert">
+  <p>The Loop is {{ isValid ? 'valid' : 'invalid '}}.</p>
+
+  <ul class="mb-0">
+    <li
+      [ngClass]="{ 'text-success': status.isValid }"
+      *ngFor="let status of loopElementStatus"
+    >
+      <strong>{{ status.title }}</strong>
+      <span class="ml-2 badge" [ngClass]="{ 'badge-success': status.isValid, 'badge-danger': !status.isValid }">{{ status.isValid ? 'valid' : 'invalid' }}</span>
+    </li>
+  </ul>
+</div>
+
+<ul class="nav nav-tabs mb-3">
+  <li class="nav-item" *ngFor="let loopElement of loopElementStatus; let i = index">
+    <a
+      class="nav-link"
+      [ngClass]="{ 'active': activeTab === i, 'text-success': loopElement.isValid, 'text-danger': !loopElement.isValid }"
+      (click)="activateTab(i)"
+    >{{ loopElement.title }}</a>
+  </li>
+</ul>
+
+<div #tabContent>
+  <ng-content></ng-content>
+</div>
